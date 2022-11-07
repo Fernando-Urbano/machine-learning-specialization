@@ -1,4 +1,5 @@
 # Machine Learning Studies
+The following repository is made of my annotations about the Machine Learning Specialization course.
 ## 1) Supervised Machine Learning: Regression and Classification
 supervised_machine_learning.md
 ## 2) Advanced Learning Algorithms
