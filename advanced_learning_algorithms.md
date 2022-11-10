@@ -460,7 +460,7 @@ Why do that?
 If we have lots of neurons will have convolutional specification, than we call it a convolutional neural network.
 
 An example of a convolutional neural network is a cardiac cronogram with the heart bits...
-We can use each point in time as a x...
+We can use each point in trawime as a x...
 
 <img width="220" alt="image" src="https://user-images.githubusercontent.com/99626376/200367662-7a2fb96c-d4c1-43a7-81c0-ac3a3cda1ed2.png">
 
@@ -474,3 +474,195 @@ We can also make the second layer convolutional: the second layer can have neuro
 
 With convolutional layers, we can build better versions of neural networks.
 
+#### Deciding what to try next
+What to do when the model does lots of errors?
+- get more observations
+- get smaller of bigger number of features
+- make polinomial features
+- choose lambda well when dealing with RIDGE, LASSO, etc
+
+#### Carry out diagnostics
+Diagnostic are done to gain insights into what is working and what needs to be improved.
+They take time to be implemented, but that time is generally worth it!
+
+#### Evaluating performance of model
+Having a systematic way on how to evaluate a model will help to get better results.
+By computing the test error we can understand how well the model is generalizing. Computing the error for the training sample is also important: if the testing and training errors are too different from each other, there is probably a problem.
+Also, when dealing with classification problems, understand what is the fraction of the training and testing set the algorithm has missclassified.
+
+#### Model selection and training/cross validation/test sets
+Remember: training error will not be a good predictor of how the model will predict.
+The problem with the idea of using testing error is that we are optimizing the algorithm based on the test set: therefore, we can expect to have a better error in the test set than in other generalizations. Therefore, we should split the data in:
+- training: 60% of data.
+- crossvalidation (also called dev set): 20% of data.
+- testing: 20% of data.
+
+<img width="622" alt="image" src="https://user-images.githubusercontent.com/99626376/200929477-fac7ed5e-50e7-4e03-ac13-893747bac9bf.png">
+
+With that, we can do the model selection. We choose the model by looking at the model with the lowest CV error. Furthermore, to understand how the model would do in generalization, we use the testing error. This also works to feature neural network models, tree based, etc...
+
+#### Diagnosing bias and variance
+Bias and variance happen on different occasions:
+
+![image](https://user-images.githubusercontent.com/99626376/200953341-e8f14999-00d8-45c5-b4b6-e7bb25c41180.png)
+
+Overfitting: variance.
+Underfitting: bias.
+
+When the error is high in training and high error in CV the algorithm has high bias.
+When the error is low in training and high error in CV the algorithm has high variance.
+
+A good model has similar and small amount of error in training and CV.
+
+![image](https://user-images.githubusercontent.com/99626376/200953652-b6d4ded4-7cc6-4271-bdb8-3542eff35463.png)
+
+Higher and higher order polinomial will lead to smaller training error, but the same does not happen for CV:
+
+![image](https://user-images.githubusercontent.com/99626376/200953911-b0c7abb8-bb52-4e2c-af58-a4af44a7a8b8.png)
+
+![image](https://user-images.githubusercontent.com/99626376/200954276-b55543f1-10de-4519-98ae-82af666b14a6.png)
+
+![image](https://user-images.githubusercontent.com/99626376/200954316-541a064e-afcb-45e2-8439-5a33511d6b05.png)
+
+It is really rare to have to have high bias and high variance:
+- some features are overfitting while others are underfitting.
+
+#### Regularization and bias/variance
+Regularization affects the bias and variance.
+When lambda is a very large variable. When that happens, the model is highly motivated to have small parameters. This model has a high bias. The high variance, in the other hand, happens when the lambda is too small.
+
+When we work with regularization, the value of the cost function goes up with bigger lambda for training samples.
+
+![image](https://user-images.githubusercontent.com/99626376/200955419-4354e30f-1773-4a0e-9b99-1bfdd9d12730.png)
+
+The algorithm should try to understand which is minimizes the cost function of the CV.
+
+#### Establishing a baseline level of performance
+It is necessary to set a base line. If the training set has similar error to the base line and the CV set has a higher error, the model more probably has a variance problem.
+
+"What is the level of error you can reasonably hope to get to?"
+- Human level performance
+- Competing algorithms performance
+- Guess based on experience
+
+![image](https://user-images.githubusercontent.com/99626376/200957373-02ee9eab-a9d0-49b7-a185-4b24f1095103.png)
+
+High bias or high variance is defined by the distant between baseline - training and training - CV.
+
+#### Learning Curves
+Is it a function o the number of examples it has. It also showns the CV function cost. The functions are very different for training and CV. That is because in training, when the number of observations is smaller the parameters have less data to fit.
+
+![image](https://user-images.githubusercontent.com/99626376/200966620-eb84813a-a4dd-47c2-bd5f-aa3c01c7b108.png)
+
+With the increase of observations:
+
+![image](https://user-images.githubusercontent.com/99626376/200966758-58b3725f-2529-45a1-abc8-15a31d41a7b3.png)
+
+Algorithms with high bias will have the shape in the learning curve:
+
+![image](https://user-images.githubusercontent.com/99626376/200966890-5d4c5036-7b60-483a-b9a3-bb90638d86df.png)
+
+The curves will flatten after a while. If the model has high bias, it will not increase performance when we have an increase in training sample.
+
+Algorithms with high variance will generally have a bigger difference between training sample and CV but will not get flatten so fast.
+
+![image](https://user-images.githubusercontent.com/99626376/200967206-cab9a45c-797a-429c-8f42-e5892152a96d.png)
+
+Therefore, when we have high variance, a good idea is to increase the sample size.
+
+#### Deciding what to try next revised
+It is always important to check if the algorithm is having high variance or high variance.
+When the algorithm has high variance:
+- get more training examples.
+- try smaller sets of features.
+- try increasing lambda
+When the algorithm has high bias:
+- try adding polynomial features.
+- try decreasing lambda.
+- try getting additional features.
+
+#### Bias and variance in neural networks
+Neural networks will produce better predictions and help us choose in the tradeoff between bias and variance.
+Simple recept to get an accurate model:
+1) train your model and check if it doing well compared to the base-line.
+2) if the model is not doing well, add more layers or more neurons per layer.
+3) where it starts to do well on the training set, check if it does well in the CV set.
+4) if it does not do well in CV set, get more data!
+5) after it starts doing well in CV set, the algorithm is done!
+
+A large training network will usually do as well or better than a smaller one so long as regularization is chosen appropriately. 
+
+![image](https://user-images.githubusercontent.com/99626376/200969201-cdacfd45-6f62-4e8f-aee6-b1249b9212d9.png)
+
+To regularize the neural network use lambda in the cost function:
+
+![image](https://user-images.githubusercontent.com/99626376/200969447-a0dac2b1-21a3-4b82-b272-270e7a31771a.png)
+
+It hardly ever hurts to regularize the algorithm performance. It just takes longer.
+
+
+#### Iterative loop of ML development
+Development a machine learning system is made by:
+1) choose architecture: choose model, data, etc...
+2) train model
+3) diagnostics: understand bias/variance and restart with new information at (1)
+
+![image](https://user-images.githubusercontent.com/99626376/200972679-c46101ff-f424-408c-9bea-edc0f39cd89a.png)
+
+#### Error analysis
+After bias and variance, error analysis is the most important.
+Error analysis means manually looking at the errors to understand why the errors is happening.
+Also looking by the errors we can find which kind of errors are more important: sometimes there are few errors that happen due to cause A but the cause A would generate a bigger problem.
+
+![image](https://user-images.githubusercontent.com/99626376/200973619-2bce2bad-8b96-4c90-b422-26b8796b7ec0.png)
+
+#### Adding data
+Adding data can be done more efficiently if done more correctly. Some tecniques are more useful than others for each application.
+How to add more data?
+- add more data of the types where error analysis has indicated it might help. Go to unlabeled data and find more examples of the current problem.
+- data augmentation: modifying an existing training example to create a new example. that can be done in images (changing color, font, size, etc...)
+
+![image](https://user-images.githubusercontent.com/99626376/200974273-fc5eec6f-548e-4e18-9aad-84f4f1d4c788.png)
+
+More advanced methods of data augmentation are done by distorting the image:
+
+![image](https://user-images.githubusercontent.com/99626376/200974362-adde36ba-99e1-482d-b3c2-b60cac44b7b6.png)
+
+The same can be done with speech recognition by adding background noisy:
+
+![image](https://user-images.githubusercontent.com/99626376/200974498-bd5536c3-db85-4292-8f04-3681db7f5de6.png)
+
+![image](https://user-images.githubusercontent.com/99626376/200974767-909f104a-04e9-4e6d-8fbe-7da130737402.png)
+
+- data synthesis: using artificial data inputs to create a new training example. example: photo OCR: where an algorithm is asked to recognize text in image.
+
+![image](https://user-images.githubusercontent.com/99626376/200974961-b255bbaa-72ad-4bbf-ba3b-996047ba7697.png)
+
+One way to create new data for the task: the notebook has a lot of fonts which can be used mixed with different highlights, contrasts, etc...
+
+In the pass:
+people focused on inproving the code.
+
+Now:
+people focus on inproving data (data-centric approach)
+
+![image](https://user-images.githubusercontent.com/99626376/200975333-9dcc03a9-531d-4fb1-8313-0fbe25012f8e.png)
+
+Collecting more data tends to generate better outputs.
+
+#### Transfer learning
+Transfer learning: using data from a different task.
+Example:
+- we have a goal to construct an algorithm that can recognize which number between 0 and 9 is written.
+- we do not have much data about it.
+- we have much data about an algorithm used to recognize cars, cats, houses and dogs.
+- we can use the parameters of the layers of the last algorithm in our model to train the goal model (considering that the features are the same because we are still talking about images).
+- in this case, only the last layer of the goal model with be trained.
+- in more detail, there are two ways to complete the goal model:
+    - option 1: only train the output layer parameters and leave the rest (better when there is very small data set for the goal model).
+    - option 2: train all the parameters from all the layers but having it inilizalized in the values of the previous parameters (better when there is a little more data for the goal model).
+- by learning about one kind of thing, the model can learn about another.
+
+![image](https://user-images.githubusercontent.com/99626376/200977676-d3c3b56d-f87c-4e9a-8288-99bdeab6ad48.png)
+
+The first step is called (1) supervised pretraining and the second is (2) fine tuning.
