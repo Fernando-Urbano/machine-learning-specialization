@@ -666,3 +666,205 @@ Example:
 ![image](https://user-images.githubusercontent.com/99626376/200977676-d3c3b56d-f87c-4e9a-8288-99bdeab6ad48.png)
 
 The first step is called (1) supervised pretraining and the second is (2) fine tuning.
+
+#### Why does transfer learning works?
+It works because the neural networks can learn to detect "edges", "corners", "curves". The new output can use those previous detections to understand the new goal. Important: the pre-training has to have the same dimensions.
+
+1. Download NN parameters pretrained on a large dataset with same input type (image, audio, text) as your application.
+2. Further train (fine tune) the network on your own data.
+
+#### Full cycle of a machine learning project
+Training a model is just part of a cycle.
+When building a machine learning project:
+1) scope the project: define the project goal.
+2) collect data: decide what data is important (target and features).
+3) train model: training, error analysis, iterative improvement.
+4) get more data from other sources or from deployment.
+
+<img width="647" alt="image" src="https://user-images.githubusercontent.com/99626376/201180980-14acf5d5-6645-499b-b81e-e0118ac57c7c.png">
+
+Deployment: take the machine learning model and use it inside a inference server.
+The model APP will make an API call to ask the inference server to run the model.
+The model will work with the API to give the result back.
+
+<img width="521" alt="image" src="https://user-images.githubusercontent.com/99626376/201180268-3b7539f4-e370-4b9c-ab5e-63c2bef40709.png">
+
+Software engineering may be needed for:
+   - ensure reliable and efficient predictions.
+   - scaling.
+   - logging.
+   - system monitoring
+   
+MLOps: machine learning operations (how to maintain and construct good machine learning teams).
+
+#### Fairness, bias, and ethics
+Bias:
+- hiring tool that discriminates against women.
+- facial recognition system matching dark skinned individuals to criminal mugshots.
+- etc...
+Adverse:
+- generate fake videos (Deepfake).
+- fake content for commercial or political purposes.
+- fraud.
+Get a more diverse team to brainstorm things that might go wrong, with emphasis on possible har to vulnerable groups.
+Carry out literature search on standards/guidelines for your industry.
+Audit systems against possible harm prior to deployment.
+
+#### Error metrics for skewed datasets
+With very skewed datasets, accuracy does not work well.
+Example: rare disease classification where only 0.5% of patients have the disease. In this case, just saying that we always have 0, would lead to an accuracy 99.5% accuracy.
+
+#### Precision/Recall
+y = 1 in presence of rare class.
+
+We construct a matrix:
+
+<img width="276" alt="image" src="https://user-images.githubusercontent.com/99626376/201184483-f263511f-7ea0-4b24-95b3-636ae5fd6adf.png">
+
+True positive: predicted as positive and is positive.
+True negative: predicted as negative and is negative.
+False positive: predicted as positive and is negative.
+False negative: predicted as negative and is positive.
+
+<img width="278" alt="image" src="https://user-images.githubusercontent.com/99626376/201184812-3b284f9f-2985-4c11-b3f3-6210728d0f74.png">
+
+Precision: true positives / (true positive + false positive)
+Precision: true positives / predicted positives
+
+<img width="420" alt="image" src="https://user-images.githubusercontent.com/99626376/201185079-d090f03c-c1dd-493a-9839-23c734e74d5e.png">
+
+Recall: true positive / (true positive + false negative)
+Recall: true positive / actual positives
+
+<img width="413" alt="image" src="https://user-images.githubusercontent.com/99626376/201185361-4e850c08-d9d9-46e5-bc1b-338ceeb5f158.png">
+
+Recall and precision are useful to understand how well an inbalanced dataset is doing.
+
+#### Trading off precision and recall
+Trade off between and precision and recall happens.
+Raising the threashold will increase the precision and reduce the recall.
+Lowering the threashold will reduce the precision and increase the recall.
+
+The tradeoff can be viewed as this:
+
+<img width="197" alt="image" src="https://user-images.githubusercontent.com/99626376/201201234-96b422dd-e248-4d36-9909-be0c72e711f8.png">
+
+We can choose the optimal threashold by choosing in this tradeoff line.
+
+#### F1 Score
+Automatically comparing threashold. For example: in the following case, which algorithm would be best?
+
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/99626376/201201789-b902e95c-c3a8-49f4-ac9a-9f1a1d75f9a3.png">
+
+Good way to understand which one is best is by using the F1 score:
+
+<img width="294" alt="image" src="https://user-images.githubusercontent.com/99626376/201202385-ef16042e-aabf-4a5b-a591-9809739f91df.png">
+
+Therefore, the F1 will generally choose the values which are not to extreme.
+
+#### Decision Tree Model
+Example: 
+
+<img width="501" alt="image" src="https://user-images.githubusercontent.com/99626376/201203001-5b5e0423-1d97-4b2c-ae01-e2cfa182294b.png">
+
+A decision tree algorithm:
+
+<img width="436" alt="image" src="https://user-images.githubusercontent.com/99626376/201203065-6a26b496-c057-4691-b4de-94f3fe6b2a53.png">
+
+A node is a separation of a feature to define the separation:
+
+<img width="429" alt="image" src="https://user-images.githubusercontent.com/99626376/201203248-6c69d447-5d56-4bef-b9f7-c9341bb94ead.png">
+
+Root node: the first node.
+Decision nodes: new separations.
+Leaf nodes: the nodes to make the decisions.
+
+<img width="473" alt="image" src="https://user-images.githubusercontent.com/99626376/201203412-426eca6d-8897-4209-93f5-3e61113482ce.png">
+
+Trees do not have to have the same amount of nodes in each classification:
+
+<img width="630" alt="image" src="https://user-images.githubusercontent.com/99626376/201203590-178085b5-83e3-4939-833a-ba724351beb3.png">
+
+#### Decision tree learning process
+The process of building a decision tree is based on:
+1 - decide which feature is to be used in the root node.
+2 - decide the next nodes...
+
+How to choose what feature to split?
+Maximize purity (or minimize inpurity for each separation).
+
+Purity meaning the best separation of labels by the that specific node. This relates to purity.
+
+When do you stop splitting?
+- when a node is 100% one class.
+- when splitting a node will result in the tree exceeding a maximum depth.
+- when improvements in purity score are below a threshold.
+- when number of examples in a node is below a threshold.
+
+We start by saying that the first node is depth 0:
+
+<img width="196" alt="image" src="https://user-images.githubusercontent.com/99626376/201204801-36880d51-5241-478f-be02-3c2f4d6be8d8.png">
+
+By making the tree small, we have a smaller chance to overfit.
+
+There are many ways to stop splitting.
+
+#### Entropy: measuring purity
+Entropy is higher when the percentage of classes is more similar:
+
+<img width="245" alt="image" src="https://user-images.githubusercontent.com/99626376/201214602-ed828083-61c4-452b-8925-027683ad494f.png">
+
+If the group can be separated more, the entropy decreases as the entropy increases.
+
+<img width="437" alt="image" src="https://user-images.githubusercontent.com/99626376/201214982-8ab75d73-329c-4378-af68-2d4d7b15f8cb.png">
+
+The entropy function is found by:
+
+<img width="380" alt="image" src="https://user-images.githubusercontent.com/99626376/201216533-99508fe0-487d-4d63-89a4-cfbaa63b886a.png">
+
+Considering:
+
+<img width="217" alt="image" src="https://user-images.githubusercontent.com/99626376/201216605-7c59d160-69c0-494d-ab16-9500b0f25b93.png">
+
+Entropy is a fraction of the level impurity of a tree.
+
+#### Choosing a split: information gain
+By dividing a tree we are trying to reduce entropy by the maximum amount.
+After, we continue to apply the entropy level for each decision level and each node.
+
+<img width="658" alt="image" src="https://user-images.githubusercontent.com/99626376/201217318-4ae3b749-46ba-42d6-8469-90638cc04827.png">
+
+The entropy says that the first separation is better: we should make a weighted average of entropy (weighted by the number of observations by branch).
+
+Alternativily, we can compute the reduction in entropy: considering that the original group had the same amount for boths groups, the entropy of the group before was 1.
+
+<img width="649" alt="image" src="https://user-images.githubusercontent.com/99626376/201217890-706a2116-49c1-4366-800c-b2ba42d1c440.png">
+
+#### Information gain:
+
+<img width="623" alt="image" src="https://user-images.githubusercontent.com/99626376/201218184-6b5b4817-b29c-4489-b75e-816853cb351f.png">
+
+Information gain calculating by comparing entropy of before the separation to the entropy after the separation. The information gain will define the feature to split.
+
+#### Decision tree putting it together
+- start with all examples
+- calculate information gain for all possible features, and pick the one with the highest information gain.
+- split the dataset according to selected feature, and create left and right branches of the tree.
+- keep repeating splitting process until stopping criteria is met:
+    - when a node is 100% one class.
+    - when splitting a node will result in the tree exceeding a maximum depth.
+    - when information gain from additional splits is less than threshold.
+    - when number of examples in a node is below a threshold.
+
+Recursive algorithm: the first part of the code is the same as the next, and the next, and the next...
+
+
+
+
+
+
+
+
+
+   
+
