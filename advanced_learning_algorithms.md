@@ -250,7 +250,7 @@ Therefore, ReLU is almost always recommended:
 
 <img width="544" alt="image" src="https://user-images.githubusercontent.com/99626376/200063796-299678f0-a601-40b5-b0f8-dd34b7a5eb1f.png">
 
-### Why do we use activation functions?
+#### Why do we use activation functions?
 Why not just use the linear activation function
 (g(z) = z)?
 
