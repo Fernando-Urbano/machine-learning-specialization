@@ -968,7 +968,18 @@ XGBoost and NN are the ones which gain more competitions!
 #### When to use decision tree?
 Decision trees and tree ensemble:
 - works well on tabular data.
-- 
+- works well for classification and regression.
+- not recommended for unstructure data.
+- it is faster.
+- small decision trees may be human interpretable (an interpretability of decision tree is overestimated - better to use XGBoost).
+
+Neural networks:
+- works well on all types of data, including tabular and unstructured data.
+- may be slower than a decision tree to train.
+- works with transfer learning (can take a pretraining from a larger dataset).
+- when building a system of multiple models working together, it might be easier to string together multiple neural networks.
+
+
 
 
 
