@@ -898,6 +898,79 @@ The variance of each group is weighted by the amount of observations in each gro
 ![image](https://user-images.githubusercontent.com/99626376/201244074-2e7bee37-660c-41fa-b02b-5363a2e79c06.png)
 
 #### Using multiple decision trees
+Using multiple trees is useful when changing the sample used. For that, we train multiple decisions tree: each decision tree will have a subsample. That is called a tree ensemple!
+
+![image](https://user-images.githubusercontent.com/99626376/201381431-af4180ae-0e4c-4fd1-a685-248474590258.png)
+
+In the end, the predictions of each of the threes are considered. The result that gets more "votes" will be the results used.
+
+![image](https://user-images.githubusercontent.com/99626376/201381702-57893baf-4166-4e61-959e-eceaeffbc5e9.png)
+
+In the previous case: cat!
+
+How do we define how to make the subsamples?
+
+#### Sampling with replacement
+Used to make a tree with sampling we need this!
+
+In that we:
+- take all the observations in a "box".
+- take a sample from the observations in the "box.
+- make a decision tree with that sample.
+- give back the observations in the sample to the observations "box".
+- retake a new sample from the box (can have the same observations as before)...
+
+By using this tecnique multiple times, we get different samples...
+
+We construct multiple training sets that will have the same training size then the original, but might have repeated the same observation.
+
+![image](https://user-images.githubusercontent.com/99626376/201382844-66eac932-81ff-4929-8726-8aec57fa70c3.png)
+
+There will be repeat observations (and will not contain all the observations).
+
+#### Random forest algorithm (bagged decision tree)
+Works much better than using a single tree.
+
+![image](https://user-images.githubusercontent.com/99626376/201387683-916bd91e-0e7e-446b-be70-d9c2db293d39.png)
+
+Using more than 100 trees does not help, therefore, there is no need to make thousands.
+
+It is common that the first node is the same for most of the trees.
+
+To make the features used different for many different trees, we should use a subset of features to decide, being a that number of features "k" (k < n). Generally, the number of subset features chosen is $k=n^{1/2}$. With larger number of features, this tends to work better.
+
+The sampling makes the algorithm explore more possibilities. Any further change, has a smaller chance of being different from the samples used.
+
+#### XGBoost: tree emsemble
+XGBoost is advanced quickly and really good!
+There is a small modification from the normal random forest.
+
+Steady of picking the sample observations with the same probability, we assign a higher probability to pick examples that were misclassified before.
+
+![image](https://user-images.githubusercontent.com/99626376/201392747-1251c512-b337-4f21-aaca-ad0da96da927.png)
+
+The next decision tree will focus more attention in the samples that were poorly trained before.
+
+This is the idea behind boosting!
+
+![image](https://user-images.githubusercontent.com/99626376/201393178-76ae7741-8ac0-4136-8d29-83ceeae6c9d5.png)
+
+The boosting procedure will consider not only the misclassified results from the last interation, but from all the previous ones.
+
+There is a math behind the chance of picking a bad vs a good classification observation.
+
+![image](https://user-images.githubusercontent.com/99626376/201394085-404fe0cc-9730-444d-8779-77fc60f6e1b8.png)
+
+XGBoost and NN are the ones which gain more competitions!
+
+![image](https://user-images.githubusercontent.com/99626376/201394316-2410ce28-8643-4668-88a3-79a9d9cd0ef9.png)
+
+#### When to use decision tree?
+Decision trees and tree ensemble:
+- works well on tabular data.
+- 
+
+
 
 
 
