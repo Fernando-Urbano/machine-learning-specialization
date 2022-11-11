@@ -857,7 +857,47 @@ Information gain calculating by comparing entropy of before the separation to th
     - when number of examples in a node is below a threshold.
 
 Recursive algorithm: the first part of the code is the same as the next, and the next, and the next...
+Each part of the decision tree is a decision tree itself.
 
+We can pick the maximum depth by cross validation or by picking a minimun information gain or also by defining what should be the smallest number of observations in one group.
+
+#### Using one-hot encoding of categorial features
+In the last example, we only had features that had two options. Now, when we have features that take on many values, we need one-hot-encoding. That means trasforming the variables in dummies.
+If a categorial feature can take on "k" values, create a "k" binary features (0 or 1 valued). Different from the regression, where we would have to put "k-1" in order to avoid multicollinearity.
+
+#### Continuous features
+How to use features that are continuous. 
+
+![image](https://user-images.githubusercontent.com/99626376/201242969-656bcf47-ddfa-4b6e-9e0b-e6d3785836c0.png)
+
+That would be done by applying a threshold value in the continuous feature.
+The idea is to find the threshold that gives the best information gain.
+
+![image](https://user-images.githubusercontent.com/99626376/201243145-ac83aa05-fc40-4a86-8251-0ef252107864.png)
+
+![image](https://user-images.githubusercontent.com/99626376/201243371-a94734b6-2eda-46ba-80dd-7ac93a6d382c.png)
+
+The continuous variable will be chosen if the information gain is bigger than any other feature.
+
+#### Regression trees
+
+![image](https://user-images.githubusercontent.com/99626376/201243619-514b7de6-6e4e-48db-9d9e-c17eb66c527f.png)
+
+In this case, we would predict a number and not the classification.
+
+The regression tree will make a decision by the average of observations.
+
+How to choose a split?
+
+The split should be done by separating the groups in a way that the variance of weights inside a group is small.
+
+![image](https://user-images.githubusercontent.com/99626376/201243970-1e455fae-28f9-4c83-a3cd-606cf23fc34e.png)
+
+The variance of each group is weighted by the amount of observations in each group:
+
+![image](https://user-images.githubusercontent.com/99626376/201244074-2e7bee37-660c-41fa-b02b-5363a2e79c06.png)
+
+#### Using multiple decision trees
 
 
 
