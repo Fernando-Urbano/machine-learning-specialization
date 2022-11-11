@@ -322,7 +322,7 @@ In the end, we have "a" for each class which is derived by dividing that specifi
 For a logistic regression, the result "a1" would be a function only of "z1". On the otherhand, the softmax function will derive a1 using z1, z2, z3, ..., zN.
 This property is a bit unique to the softmax regression.
 
-### How to implement with tensorflow?
+#### How to implement with tensorflow?
 The last layer will need to be a softmax with the amount of units the same as the "units".
 
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/99626376/200064714-2eae4edd-ae88-4d08-8fb1-784dee98bd26.png">
@@ -337,7 +337,7 @@ We can train the model in the same way:
 
 But it is not recommended that we use this code in this way because another way will work better.
 
-### Improved Softmax Implementation
+#### Improved Softmax Implementation
 There is a even better way than using. Because the computer only has a finit amount of space to store each digit the result from 2 / 10000 is different from the result of 1 + (1 / 10000) - (1 - 1 / 10000)
 
 ```
