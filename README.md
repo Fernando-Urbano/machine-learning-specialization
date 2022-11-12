@@ -6,3 +6,6 @@ supervised_machine_learning.md
 advanced_learning_algorithms.md
 ## 3) Unsupervised Learning, Recommender and Reinforcement Learning
 unsupervised_recommenders_reinforcement.md
+## 4) Smaller Studies
+### 4.1) Shap
+shap.md
