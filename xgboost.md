@@ -42,6 +42,7 @@ There are three types of parameters:
 - learning task parameters: decide on the learning scenario.
 
 **General Parameters**
+
 `booster`: default=`gbtree`
 `validate_parameters`: [default=`False`] when true, XGBoost will perform validation of input parameters to check whether a parameter is used or not.
 `nthread`: [default to maximum number available]
