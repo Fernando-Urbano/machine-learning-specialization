@@ -9,3 +9,5 @@ unsupervised_recommenders_reinforcement.md
 ## 4) Smaller Studies
 ### 4.1) Shap
 shap.md
+### 4.2) XGBoost
+xgboost.md
