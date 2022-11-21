@@ -182,3 +182,54 @@ Answer next:
 
 #### Anomaly Detection vs. Supervised Learning
 The anomaly detection is better when we have a very small number of positive examples (less than 20) and a large number of negative examples.
+
+#### Choosing what features to use
+Choosing features is really important is really important for unlabeled data.
+Carefully choosing the features is crucial.
+
+For anomaly detection non-gaussian features are problematic. We should transform the features to a gaussian one:
+
+<img width="559" alt="image" src="https://user-images.githubusercontent.com/99626376/203080316-86bd81d4-b039-41f0-97a8-d5b38e1a14d0.png">
+
+The transformation can be log(x + c) beig "c" the constant in order to be able to make the feature gaussian.
+
+The transformation can be log(x + c) beig "c" the constant in order to be able to make the feature gaussian.
+
+The transformation can be log(x + c) beig "c" the constant in order to be able to make the feature gaussian.
+
+Others transformations are viable as well:
+
+<img width="291" alt="image" src="https://user-images.githubusercontent.com/99626376/203080836-866e0969-9107-4386-b423-6417245362ec.png">
+
+<img width="310" alt="image" src="https://user-images.githubusercontent.com/99626376/203081343-26a53ff9-318a-4bac-b7aa-9d3876145249.png">
+
+Remember to apply the same transformation to cross-validation and testing set!
+
+Error analysis for anomaly detection is crucial if the CV set does not make it work well.
+
+We want p(x) to be small for anomalous examples "x".
+
+<img width="496" alt="image" src="https://user-images.githubusercontent.com/99626376/203082319-a404a4a7-f4e1-4e08-8cee-9413ee81e09d.png">
+
+Than, try to find "x2" to find better detections.
+
+Connections between variables are also importants: for example, it can be normal for a computer to have high CPU usage, but only if also has high traffic. Therefore, the CPU divided by traffic can be a good way to detect an anomaly!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
